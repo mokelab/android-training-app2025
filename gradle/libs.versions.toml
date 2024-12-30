@@ -1,13 +1,17 @@
 [versions]
 agp = "8.9.0-alpha06"
-kotlin = "2.0.0"
+kotlin = "2.1.0"
 coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.9.3"
-composeBom = "2024.09.00"
+composeBom = "2024.12.01"
+# `以下を追加
+minSdk = "30"
+compileSdk = "35"
+targetSdk = "35"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
