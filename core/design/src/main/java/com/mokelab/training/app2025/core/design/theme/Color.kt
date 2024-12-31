@@ -1,4 +1,4 @@
-package com.mokelab.training.app2025.ui.theme
+package com.mokelab.training.app2025.core.design.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -1,6 +1,5 @@
-package com.mokelab.training.app2025.ui.theme
+package com.mokelab.training.app2025.core.design.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
