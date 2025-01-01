@@ -23,3 +23,4 @@ rootProject.name = "TrainingApp2025"
 include(":app")
 include(":core:design")
 include(":core:model")
+include(":core:ui")
