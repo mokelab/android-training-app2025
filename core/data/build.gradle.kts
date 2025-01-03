@@ -34,6 +34,9 @@ android {
 
 dependencies {
     api(project(":core:model"))
+
+    implementation(libs.hilt.android)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.runner)
