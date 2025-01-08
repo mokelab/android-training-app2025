@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.mokelab.training.app2025.core.design"
+    namespace = "com.mokelab.training.app2025.feature.article"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -31,14 +31,24 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures {
+        compose = true
+    }
 }
 
 dependencies {
-    api(platform(libs.androidx.compose.bom))
-    api(libs.androidx.ui)
-    api(libs.androidx.compose.foundation)
-    implementation(libs.androidx.material3)
+    implementation(project(":core:data"))
+    implementation(project(":core:ui"))
+    implementation(project(":core:design"))
+
+    implementation(libs.androidx.core.ktx)
+
+    implementation(libs.androidx.ui.tooling)
+    implementation(libs.hilt.android)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.runner)
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
 }
