@@ -65,4 +65,49 @@ class ArticleListViewModelTest {
         assertThat(articles.size, `is`(1))
 
     }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun testLoadErrorSuccess() = runTest {
+        val repo = mockk<ArticleRepository>()
+        val viewModel = ArticleListViewModel(
+            articleRepository = repo,
+        )
+
+        coEvery { repo.load() } throws Exception("Failed to load")
+
+        assertThat(
+            viewModel.uiState.value,
+            instanceOf(ArticleListViewModel.UiState.Initial::class.java)
+        )
+        viewModel.load()
+        advanceUntilIdle()
+        assertThat(
+            viewModel.uiState.value,
+            instanceOf(ArticleListViewModel.UiState.Error::class.java)
+        )
+        val exception = (viewModel.uiState.value as ArticleListViewModel.UiState.Error)
+            .th
+        assertThat(exception, instanceOf(Exception::class.java))
+
+        // retry
+
+        coEvery { repo.load() } returns listOf(
+            Article(
+                id = ArticleId("id01"),
+                title = "title",
+                content = "content",
+                createdAt = Date(),
+            )
+        )
+        viewModel.load()
+        advanceUntilIdle()
+        assertThat(
+            viewModel.uiState.value,
+            instanceOf(ArticleListViewModel.UiState.Success::class.java)
+        )
+        val articles = (viewModel.uiState.value as ArticleListViewModel.UiState.Success)
+            .articles
+        assertThat(articles.size, `is`(1))
+    }
 }
