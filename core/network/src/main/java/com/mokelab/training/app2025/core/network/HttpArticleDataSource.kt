@@ -18,7 +18,7 @@ class HttpArticleDataSource @Inject constructor(
     @Named("baseUrl") private val baseUrl: String,
 ) : NetworkArticleDataSource {
     override suspend fun fetch(startTimeMillis: Long): List<NetworkArticle> {
-        val resp = client.get(Url("${baseUrl}/getArticle"))
+        val resp = client.get(Url("${baseUrl}/getArticle?t=${startTimeMillis}"))
         if (resp.status.value != 200) {
             throw NetworkException(
                 status = resp.status.value,
