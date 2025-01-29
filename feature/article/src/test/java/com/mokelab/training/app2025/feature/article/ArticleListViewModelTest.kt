@@ -1,5 +1,6 @@
 package com.mokelab.training.app2025.feature.article
 
+import android.content.Context
 import com.mokelab.training.app2025.core.data.ArticleRepository
 import com.mokelab.training.app2025.core.model.Article
 import com.mokelab.training.app2025.core.model.ArticleId
@@ -37,8 +38,10 @@ class ArticleListViewModelTest {
     @Test
     fun testLoadSuccess() = runTest {
         val repo = mockk<ArticleRepository>()
+        val context = mockk<Context>()
         val viewModel = ArticleListViewModel(
             articleRepository = repo,
+            context = context,
         )
 
         coEvery { repo.load() } returns listOf(
@@ -70,8 +73,10 @@ class ArticleListViewModelTest {
     @Test
     fun testLoadErrorSuccess() = runTest {
         val repo = mockk<ArticleRepository>()
+        val context = mockk<Context>()
         val viewModel = ArticleListViewModel(
             articleRepository = repo,
+            context = context,
         )
 
         coEvery { repo.load() } throws Exception("Failed to load")

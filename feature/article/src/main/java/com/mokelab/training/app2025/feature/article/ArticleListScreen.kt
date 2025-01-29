@@ -19,6 +19,7 @@ import com.mokelab.training.app2025.core.design.theme.TrainingApp2025Theme
 import com.mokelab.training.app2025.core.model.Article
 import com.mokelab.training.app2025.core.model.ArticleId
 import com.mokelab.training.app2025.core.ui.ArticleItem
+import com.mokelab.training.app2025.core.ui.LoadError
 import java.util.Date
 
 @Composable
@@ -63,7 +64,13 @@ private fun ArticleListScreen(
                 )
             }
 
-            is ArticleListViewModel.UiState.Error -> {}
+            is ArticleListViewModel.UiState.Error -> {
+                LoadError(
+                    message = uiState.message,
+                    onRetry = load,
+                    modifier = Modifier.padding(paddingValues),
+                )
+            }
         }
     }
 
