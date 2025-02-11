@@ -20,4 +20,13 @@ class MockArticleDataSource @Inject constructor() : NetworkArticleDataSource {
             ),
         )
     }
+
+    override suspend fun fetchById(id: String): NetworkArticle? {
+        return NetworkArticle(
+            id = id,
+            title = "Title $id",
+            content = "Content $id",
+            createdAtMillis = 1736730000000L,
+        )
+    }
 }

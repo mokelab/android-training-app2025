@@ -34,6 +34,25 @@ class HttpArticleDataSource @Inject constructor(
             throw IOException(e)
         }
     }
+
+    override suspend fun fetchById(id: String): NetworkArticle? {
+        return try {
+            val resp = client.get(Url("${baseUrl}/getArticleById?id=${id}"))
+            if (resp.status.value != 200) {
+                if (resp.status.value == 404) {
+                    return null
+                }
+                throw NetworkException(
+                    status = resp.status.value,
+                    body = resp.body(),
+                )
+            }
+            val article: NetworkArticle = Json.decodeFromString(resp.body())
+            article
+        } catch (e: UnresolvedAddressException) {
+            throw IOException(e)
+        }
+    }
 }
 
 @Serializable

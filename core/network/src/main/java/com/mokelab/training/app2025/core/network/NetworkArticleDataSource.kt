@@ -4,4 +4,5 @@ import com.mokelab.training.app2025.core.network.model.NetworkArticle
 
 interface NetworkArticleDataSource {
     suspend fun fetch(startTimeMillis: Long): List<NetworkArticle>
+    suspend fun fetchById(id: String): NetworkArticle?
 }
