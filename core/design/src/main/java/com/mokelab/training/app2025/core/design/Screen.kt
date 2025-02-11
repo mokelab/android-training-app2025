@@ -8,9 +8,11 @@ import androidx.compose.ui.Modifier
 @Composable
 fun Screen(
     modifier: Modifier = Modifier,
+    topBar: @Composable (() -> Unit) = {},
     content: @Composable (PaddingValues) -> Unit,
 ) {
     Scaffold(
+        topBar = topBar,
         modifier = modifier,
         content = content,
     )

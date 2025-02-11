@@ -2,4 +2,6 @@
 <resources>
     <string name="error_network">Network error</string>
     <string name="error_generic">Error\n(%1$s)</string>
+    <string name="loading">Loading</string>
+    <string name="load_error">Error</string>
 </resources>
