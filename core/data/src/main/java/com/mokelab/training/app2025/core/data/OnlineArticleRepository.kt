@@ -17,6 +17,6 @@ class OnlineArticleRepository @Inject constructor(
     }
 
     override suspend fun getById(id: ArticleId): Article? {
-        TODO("Not yet implemented")
+        return networkDataSource.fetchById(id.value)?.toArticle()
     }
 }
