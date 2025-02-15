@@ -12,13 +12,18 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Named
 
 @HiltViewModel
 class ArticleDetailViewModel @Inject constructor(
     private val articleRepository: ArticleRepository,
     savedStateHandle: SavedStateHandle,
-    getArticleId: (SavedStateHandle) -> ArticleId,
+    @Named("articleDetailParams") paramParser: ArticleDetailParamParser,
 ) : ViewModel() {
+    interface ArticleDetailParamParser {
+        fun parse(handle: SavedStateHandle): ArticleId
+    }
+
     sealed interface UiState {
         data object Initial : UiState
         data object Loading : UiState
@@ -35,7 +40,7 @@ class ArticleDetailViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<UiState>(UiState.Initial)
     val uiState = _uiState.asStateFlow()
 
-    private val articleId = getArticleId(savedStateHandle)
+    private val articleId = paramParser.parse(savedStateHandle)
 
     fun load() {
         _uiState.value = UiState.Loading

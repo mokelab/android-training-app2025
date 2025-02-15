@@ -1,9 +1,14 @@
 package com.mokelab.training.app2025
 
+import androidx.lifecycle.SavedStateHandle
+import androidx.navigation.toRoute
 import com.mokelab.training.app2025.core.data.ArticleRepository
 import com.mokelab.training.app2025.core.data.OnlineArticleRepository
+import com.mokelab.training.app2025.core.model.ArticleId
 import com.mokelab.training.app2025.core.network.HttpArticleDataSource
 import com.mokelab.training.app2025.core.network.NetworkArticleDataSource
+import com.mokelab.training.app2025.feature.article.ArticleDetailViewModel
+import com.mokelab.training.app2025.navigation.ArticleDetail
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -40,5 +45,21 @@ object ClientModule {
     @Singleton
     fun provideBaseUrl(): String {
         return "https://us-central1-trialapp2025-funsite.cloudfunctions.net"
+    }
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+object ArticleParamsModule {
+    @Provides
+    @Singleton
+    @Named("articleDetailParams")
+    fun provideArticleDetailParamsParser(): ArticleDetailViewModel.ArticleDetailParamParser {
+        return object : ArticleDetailViewModel.ArticleDetailParamParser {
+            override fun parse(handle: SavedStateHandle): ArticleId {
+                val route = handle.toRoute<ArticleDetail>()
+                return ArticleId(route.articleId)
+            }
+        }
     }
 }

@@ -8,10 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.mokelab.training.app2025.core.design.theme.TrainingApp2025Theme
-import com.mokelab.training.app2025.feature.article.ArticleListScreen
-import com.mokelab.training.app2025.feature.article.ArticleListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,8 +18,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             TrainingApp2025Theme {
-                val viewModel: ArticleListViewModel = hiltViewModel()
-                ArticleListScreen(viewModel)
+                MainScreen()
             }
         }
     }
