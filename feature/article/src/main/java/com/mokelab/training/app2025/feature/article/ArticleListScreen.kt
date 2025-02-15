@@ -1,5 +1,6 @@
 package com.mokelab.training.app2025.feature.article
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,12 +26,14 @@ import java.util.Date
 @Composable
 fun ArticleListScreen(
     viewModel: ArticleListViewModel,
+    toDetail: (ArticleId) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     ArticleListScreen(
         uiState = uiState,
         load = { viewModel.load() },
+        toDetail = toDetail,
         modifier = modifier,
     )
 }
@@ -39,6 +42,7 @@ fun ArticleListScreen(
 private fun ArticleListScreen(
     uiState: ArticleListViewModel.UiState,
     load: () -> Unit,
+    toDetail: (ArticleId) -> Unit,
     modifier: Modifier,
 ) {
     Screen(
@@ -60,6 +64,7 @@ private fun ArticleListScreen(
             is ArticleListViewModel.UiState.Success -> {
                 ArticleList(
                     articles = uiState.articles,
+                    toDetail = toDetail,
                     modifier = Modifier.padding(paddingValues),
                 )
             }
@@ -90,6 +95,7 @@ private fun ArticleListScreen(
 @Composable
 private fun ArticleList(
     articles: List<Article>,
+    toDetail: (ArticleId) -> Unit,
     modifier: Modifier,
 ) {
     LazyColumn(
@@ -97,7 +103,12 @@ private fun ArticleList(
             .fillMaxWidth(),
     ) {
         items(articles) { article ->
-            ArticleItem(article = article)
+            ArticleItem(
+                article = article,
+                modifier = Modifier.clickable {
+                    toDetail(article.id)
+                }
+            )
         }
     }
 }
@@ -124,6 +135,7 @@ private fun Preview() {
                 )
             ),
             load = {},
+            toDetail = {},
             modifier = Modifier,
         )
     }

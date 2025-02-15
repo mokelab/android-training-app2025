@@ -18,10 +18,15 @@ fun NavGraphBuilder.articleGraph(
     navigation<ArticleGraph>(startDestination = ArticleList) {
         composable<ArticleList> {
             val viewModel: ArticleListViewModel = hiltViewModel()
-            ArticleListScreen(viewModel = viewModel)
+            ArticleListScreen(
+                viewModel = viewModel,
+                toDetail = { articleId ->
+                    navController.navigate(ArticleDetail(articleId.value))
+                },
+            )
         }
         composable<ArticleDetail> { backStackEntry ->
-            val viewModel = hiltViewModel<ArticleDetailViewModel>()
+            val viewModel: ArticleDetailViewModel = hiltViewModel()
             ArticleDetailScreen(
                 viewModel = viewModel,
                 back = {
