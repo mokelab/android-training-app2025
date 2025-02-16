@@ -53,7 +53,6 @@ object ClientModule {
 object ArticleParamsModule {
     @Provides
     @Singleton
-    @Named("articleDetailParams")
     fun provideArticleDetailParamsParser(): ArticleDetailViewModel.ArticleDetailParamParser {
         return object : ArticleDetailViewModel.ArticleDetailParamParser {
             override fun parse(handle: SavedStateHandle): ArticleId {
